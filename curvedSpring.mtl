@@ -1,0 +1,9 @@
+# Material curvedSpring
+newmtl curvedSpring
+illum 4
+Kd 0.25490198 0.4117647 0.88235295
+Ka 0.10 0.10 0.10
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 32.00
