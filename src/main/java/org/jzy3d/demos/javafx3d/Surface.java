@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.jzy3d.demos.javafx;
+package org.jzy3d.demos.javafx3d;
 
 import javafx.scene.AmbientLight;
 import javafx.scene.DepthTest;
@@ -33,7 +33,7 @@ import javafx.scene.shape.TriangleMesh;
  * @author Sean
  */
 @SuppressWarnings("restriction")
-public class SurfacePlot extends Group {
+public class Surface extends Group {
 
     public AmbientLight selfLight = new AmbientLight(Color.WHITE);
     public double nodeRadius = 1;
@@ -45,29 +45,29 @@ public class SurfacePlot extends Group {
     public MeshView meshView;
     public PhongMaterial material;
 
-    public SurfacePlot(boolean selfLit) {
+    public Surface(boolean selfLit) {
         selfLightEnabled = selfLit;
         init();
     }
 
-    public SurfacePlot(float[][] arrayY, int spacing, Color color, boolean fill, boolean selfLit) {
+    public Surface(float[][] arrayY, int spacing, Color color, boolean fill, boolean selfLit) {
         selfLightEnabled = selfLit;
         init();
-        setHeightData(arrayY,spacing, color,selfLit,fill);
+        setHeightData(arrayY, spacing, color, selfLit, fill);
     }
 
-    public SurfacePlot(TriangleMesh mesh, int numYValues, Color color, boolean fill, boolean selfLit) {
+    public Surface(TriangleMesh mesh, int numYValues, Color color, boolean fill, boolean selfLit) {
         selfLightEnabled = selfLit;
         init();
-        setHeightData(mesh,numYValues, color,selfLit,fill);
+        setHeightData(mesh, numYValues, color, selfLit, fill);
     }
+
     private void init() {
         if (selfLightEnabled) {
             getChildren().add(selfLight);
         }
         setDepthTest(DepthTest.ENABLE);
     }
-
 
     public void setHeightData(float[][] arrayY, int spacing, Color color, boolean ambient, boolean fill) {
 
@@ -80,50 +80,58 @@ public class SurfacePlot extends Group {
             }
         }
 
-        
         setHeightData(mesh, arrayY.length, color, ambient, fill);
     }
 
     private void setHeightData(TriangleMesh mesh, int numYValues, Color color, boolean ambient, boolean fill) {
         this.mesh = mesh;
-        
-        material = new PhongMaterial();
-        material.setSpecularColor(color);
-        material.setDiffuseColor(color);
 
-        //for now we'll just make an empty texCoordinate group
+        // for now we'll just make an empty texCoordinate group
         mesh.getTexCoords().addAll(0, 0);
         int total = numYValues * numYValues;
         int nextRow = numYValues;
-        //Add the faces "winding" the points generally counter clock wise
-        for (int i = 0; i < total - nextRow -1; i++) {
-            //Top upper left triangle
-            mesh.getFaces().addAll(i,0,i+nextRow,0,i+1,0);
-            //Top lower right triangle
-            mesh.getFaces().addAll(i+nextRow,0,i+nextRow + 1,0,i+1,0);
-            
-            //Bottom            
+        // Add the faces "winding" the points generally counter clock wise
+        for (int i = 0; i < total - nextRow - 1; i++) {
+            // Top upper left triangle
+            mesh.getFaces().addAll(i, 0, i + nextRow, 0, i + 1, 0);
+            // Top lower right triangle
+            mesh.getFaces().addAll(i + nextRow, 0, i + nextRow + 1, 0, i + 1, 0);
+
+            // Bottom
         }
-        //Create a viewable MeshView to be added to the scene
-        //To add a TriangleMesh to a 3D scene you need a MeshView container object
+        
+        javafx.scene.shape.ObservableFaceArray faces = mesh.getFaces();
+        
+        //faces.
+        
+        // Create a viewable MeshView to be added to the scene
+        // To add a TriangleMesh to a 3D scene you need a MeshView container
+        // object
         meshView = new MeshView(mesh);
-        //The MeshView allows you to control how the TriangleMesh is rendered
-        if(fill) { 
+        
+        // The MeshView allows you to control how the TriangleMesh is rendered
+        if (fill) {
             meshView.setDrawMode(DrawMode.FILL);
         } else {
-            meshView.setDrawMode(DrawMode.LINE); //show lines only by default
+            meshView.setDrawMode(DrawMode.LINE); // show lines only by default
         }
-        meshView.setCullFace(CullFace.BACK); //Removing culling to show back lines
+        meshView.setCullFace(CullFace.BACK); // Removing culling to show back
+                                             // lines
 
         getChildren().add(meshView);
+
+        material = new PhongMaterial();
+        material.setSpecularColor(color);
+        material.setDiffuseColor(color);
         meshView.setMaterial(material);
+
         if (ambient) {
             selfLight.getScope().add(meshView);
-            if(!getChildren().contains(selfLight))
+            if (!getChildren().contains(selfLight))
                 getChildren().add(selfLight);
-        }
-        else if(getChildren().contains(selfLight))
+        } else if (getChildren().contains(selfLight))
             getChildren().remove(selfLight);
+
         setDepthTest(DepthTest.ENABLE);
     }
 }

@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fxyz.tools;
+package org.jzy3d.demos.javafx3d;
 
 import java.util.ArrayList;
 import javafx.scene.DepthTest;
@@ -34,7 +34,7 @@ import javafx.scene.transform.Rotate;
  *
  * @author SPhillips
  */
-public class CubeViewer extends Group {
+public class AxeBox extends Group {
 
     private ArrayList<Double> xAxisData = new ArrayList<>();
     private ArrayList<Double> yAxisData = new ArrayList<>();
@@ -116,19 +116,19 @@ public class CubeViewer extends Group {
     public boolean showzy2GridLinesGroup = true;
     public boolean showzx2GridLinesGroup = true;
     
-    public CubeViewer(boolean ambientLight) {
+    public AxeBox(boolean ambientLight) {
         selfLightEnabled = ambientLight;
         init();
         
     }
-    public CubeViewer(double size, double spacing, boolean selfLight) {
+    public AxeBox(double size, double spacing, boolean selfLight) {
         axesSize = size;
         gridLineSpacing = spacing;
         selfLightEnabled = selfLight;        
         init();
     }
    
-    public CubeViewer(double axesSize, double spacing, boolean selfLight, 
+    public AxeBox(double axesSize, double spacing, boolean selfLight, 
                     double scatterRadius, double axesThickness, double gridSize) {
         this.axesSize = axesSize;
         gridLineSpacing = spacing;
@@ -138,7 +138,6 @@ public class CubeViewer extends Group {
         this.gridSize = gridSize;
         
         init();
-        
     }
     
     private void init(){
@@ -152,6 +151,15 @@ public class CubeViewer extends Group {
             getChildren().add(light);
         }
         setDepthTest(DepthTest.ENABLE);
+    }
+    
+    public void setColor(Color color){
+        x1AxisRectangleColor = color;
+        x2AxisRectangleColor = color;
+        y1AxisRectangleColor = color;
+        y2AxisRectangleColor = color;
+        z1AxisRectangleColor = color;
+        z2AxisRectangleColor = color;
     }
     
     private void buildPanels(double size) {
