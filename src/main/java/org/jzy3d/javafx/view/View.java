@@ -65,12 +65,8 @@ public class View {
         sceneRoot.getChildren().addAll(axe);
         // setup camera transform for rotational support
         axe.getChildren().add(getCameraTransform());
-        
         axe.setColor(axeColor);
-
     }
-
-    
 
     public void initMouseCamera(Scene scene) {
         scene.setOnMousePressed((MouseEvent me) -> {
