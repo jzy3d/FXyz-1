@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.jzy3d.demos.javafx3d;
+package org.jzy3d.javafx;
 
 import javafx.scene.AmbientLight;
 import javafx.scene.DepthTest;
@@ -37,8 +37,8 @@ public class Surface extends Group {
 
     public AmbientLight selfLight = new AmbientLight(Color.WHITE);
     public double nodeRadius = 1;
-    private double axesSize = 1000;
-    private boolean normalized = false;
+    //private double axesSize = 1000;
+    //private boolean normalized = false;
     public boolean selfLightEnabled = true;
     public Color color = Color.WHITE;
     private TriangleMesh mesh;
@@ -100,7 +100,7 @@ public class Surface extends Group {
             // Bottom
         }
         
-        javafx.scene.shape.ObservableFaceArray faces = mesh.getFaces();
+        //javafx.scene.shape.ObservableFaceArray faces = mesh.getFaces();
         
         //faces.
         

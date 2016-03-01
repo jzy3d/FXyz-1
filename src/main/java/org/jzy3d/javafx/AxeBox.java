@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.jzy3d.demos.javafx3d;
+package org.jzy3d.javafx;
 
 import java.util.ArrayList;
 

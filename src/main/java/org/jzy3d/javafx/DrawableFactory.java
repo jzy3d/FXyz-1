@@ -1,4 +1,4 @@
-package org.jzy3d.demos.javafx3d;
+package org.jzy3d.javafx;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +20,49 @@ import org.fxyz.utils.Patterns.CarbonPatterns;
 
 public class DrawableFactory {
     private static final double epsilon = 0.00000000000000001;
-    private Function<Point3D, Number> dens = p->p.x;
+    private Function<Point3D, Number> colormap = p->p.x;
     
-    Function<Point2D,Number> sample = p -> Math.sin(p.magnitude() + 0.00000000000000001) / (p.magnitude() + 0.00000000000000001);
+    public Function<Point2D,Number> sample = p -> Math.sin(p.magnitude() + 0.00000000000000001) / (p.magnitude() + 0.00000000000000001);
+    public Function<Point2D,Number> jzy = p->p.getX() * Math.sin(p.getX() * p.getY());
+    //
 
+    /*public void addSurface(Group sceneRoot, Function<Point2D,Number> function, double rangeX, double rangeY, int divisionsX, int divisionsY, double functionScale) {
+    }*/
+    
+    public void addSurface(Group sceneRoot, Function<Point2D,Number> function, double rangeX, double rangeY, int divisionsX, int divisionsY, double functionScale) {
+        SurfacePlotMesh surface = new SurfacePlotMesh(function, rangeX, rangeY, divisionsX, divisionsY, functionScale);
+        // PhongMaterial matTorus = new PhongMaterial(Color.FIREBRICK);
+        // torus.setMaterial(matTorus);
+        // surface.setDrawMode(DrawMode.LINE);
+        surface.setCullFace(CullFace.NONE);
+        // NONE
+        // surface.setTextureModeNone(Color.FORESTGREEN);
+        // IMAGE
+        // torus.setTextureModeImage(getClass().getResource("res/grid1.png").toExternalForm());
+        // banner.setTextureModeImage(getClass().getResource("res/Duke3DprogressionSmall.jpg").toExternalForm());
+        surface.setTextureModePattern(CarbonPatterns.CARBON_KEVLAR, 1.0d);
+        surface.setTextureModeVertices3D(1530, colormap);
+        surface.setTextureModeFaces(256 * 256);
+
+        Rotate rotateY = new Rotate(0, 0, 0, 0, Rotate.Y_AXIS);
+        surface.getTransforms().addAll(new Rotate(0, Rotate.X_AXIS), rotateY);
+        
+        
+        addPointLight(sceneRoot, Color.WHITE, 0, 500, 600);
+        addPointLight(sceneRoot, Color.WHITE, 0, 500, -600);
+        sceneRoot.getChildren().addAll(surface);
+    }
+    
+    public PointLight addPointLight(Group sceneRoot, Color color, double x, double y, double z){
+        PointLight light = new PointLight(color);
+        sceneRoot.getChildren().add(light);
+
+        light.setTranslateX(x);
+        light.setTranslateY(y);
+        light.setTranslateZ(z);
+        return light;
+    }
+    
     public void addWireframe(Group sceneRoot, int size, int spacing, double sceneWidth, double sceneHeight) {
         float [][] arrayY = new float[2*size][2*size];
         //The Sombrero
@@ -44,23 +83,20 @@ public class DrawableFactory {
                 mesh.getPoints().addAll((x * spacing)-xOffset, arrayY[x][y], (y * spacing)-xOffset);
             }
         }
-        
+        //setTextureModeVertices3D(1530, dens);
+
         
         Surface surfacePlot = new Surface(mesh, arrayY.length, Color.BLACK, false, true);
 
         sceneRoot.getChildren().addAll(surfacePlot);
 
-        PointLight light = new PointLight(Color.WHITE);
-        sceneRoot.getChildren().add(light);
-        light.setTranslateZ(sceneWidth / 2);
-        light.setTranslateY(-sceneHeight + 10);
-
-        PointLight light2 = new PointLight(Color.WHITE);
-        sceneRoot.getChildren().add(light2);
-        light2.setTranslateZ(-sceneWidth + 10);
-        light2.setTranslateY(-sceneHeight + 10);
+        addPointLight(sceneRoot, Color.WHITE, 0, -sceneHeight + 10, sceneWidth / 2);
+        addPointLight(sceneRoot, Color.WHITE, 0, -sceneHeight + 10, -sceneWidth + 10);
     }
 
+    
+    /* SCATTER DEMO */
+    
     public void addScatterDemo(Group sceneRoot) {
         // Create and add some data to the Cube
         ArrayList<Double> dataX = new ArrayList<>();
@@ -86,7 +122,6 @@ public class DrawableFactory {
         }
     }
 
-
     public List<Point3D> generateScatter() {
         List<Point3D> data = new ArrayList<>();
         IntStream.range(0, 100000).forEach(i -> data.add(new Point3D((float) (30 * Math.sin(50 * i)), (float) (Math.sin(i) * (100 + 30 * Math.cos(100 * i))), (float) (Math.cos(i) * (100 + 30 * Math.cos(200 * i))), i))); // <--
@@ -105,30 +140,5 @@ public class DrawableFactory {
         scatter.setTextureModeVertices3D(1530, p -> p.magnitude());
         sceneRoot.getChildren().add(scatter);
         // sceneRoot.getChildren().addAll(group);
-    }
-
-    public void addSurface(Group sceneRoot, Function<Point2D,Number> function, double rangeX, double rangeY, int divisionsX, int divisionsY, double functionScale) {
-        SurfacePlotMesh surface = new SurfacePlotMesh(function, rangeX, rangeY, divisionsX, divisionsY, functionScale);
-        // PhongMaterial matTorus = new PhongMaterial(Color.FIREBRICK);
-        // torus.setMaterial(matTorus);
-        // surface.setDrawMode(DrawMode.LINE);
-        surface.setCullFace(CullFace.NONE);
-        // NONE
-        // surface.setTextureModeNone(Color.FORESTGREEN);
-        // IMAGE
-        // torus.setTextureModeImage(getClass().getResource("res/grid1.png").toExternalForm());
-        // banner.setTextureModeImage(getClass().getResource("res/Duke3DprogressionSmall.jpg").toExternalForm());
-        // PATTERN
-        surface.setTextureModePattern(CarbonPatterns.CARBON_KEVLAR, 1.0d);
-        // DENSITY
-        surface.setTextureModeVertices3D(1530, dens);
-        // FACES
-        surface.setTextureModeFaces(256 * 256);
-
-        Rotate rotateY = new Rotate(0, 0, 0, 0, Rotate.Y_AXIS);
-
-        surface.getTransforms().addAll(new Rotate(0, Rotate.X_AXIS), rotateY);
-
-        sceneRoot.getChildren().addAll(surface);
     }
 }

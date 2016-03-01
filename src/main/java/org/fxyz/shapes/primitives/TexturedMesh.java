@@ -166,12 +166,12 @@ public abstract class TexturedMesh extends MeshView implements TextureMode {
     }
     
     @Override
-    public void setTextureModeVertices3D(int colors, Function<Point3D, Number> dens) {
+    public void setTextureModeVertices3D(int colors, Function<Point3D, Number> colormap) {
         helper.setTextureType(TextureType.COLORED_VERTICES_3D);
         setColors(colors);
         createPalette(getColors());
-        setDensity(dens);
-        helper.setDensity(dens);
+        setDensity(colormap);
+        helper.setDensity(colormap);
         setTextureType(helper.getTextureType());
     }
     

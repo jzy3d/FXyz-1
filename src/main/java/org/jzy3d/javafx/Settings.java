@@ -1,4 +1,4 @@
-package org.jzy3d.demos.javafx3d;
+package org.jzy3d.javafx;
 
 import javafx.scene.paint.Color;
 

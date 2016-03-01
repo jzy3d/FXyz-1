@@ -16,42 +16,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.jzy3d.demos.javafx3d;
+package org.jzy3d.javafx.demos;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
-import java.util.stream.IntStream;
+import org.jzy3d.javafx.Chart;
+import org.jzy3d.javafx.DrawableFactory;
+import org.jzy3d.javafx.Settings;
 
 import javafx.application.Application;
-import javafx.geometry.Point2D;
-import javafx.scene.Group;
-import javafx.scene.PerspectiveCamera;
-import javafx.scene.PointLight;
-import javafx.scene.Scene;
-import javafx.scene.SceneAntialiasing;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.CullFace;
-import javafx.scene.shape.TriangleMesh;
-import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
-
-import org.fxyz.cameras.CameraTransformer;
-import org.fxyz.geometry.Point3D;
-import org.fxyz.shapes.primitives.ScatterMesh;
-import org.fxyz.shapes.primitives.SurfacePlotMesh;
-import org.fxyz.shapes.primitives.Text3DMesh;
-import org.fxyz.tools.CubeViewer;
-import org.fxyz.utils.Patterns.CarbonPatterns;
 
 /**
  *
  * @author Sean
  */
 @SuppressWarnings("restriction")
-public class Demo_JavaFX_3d_Chart extends Application {
+public class Demo_JavaFX_3d_Wireframe extends Application {
     public static void main(String[] args) {
         //System.setProperty("prism.lcdtext", "false");
         //System.setProperty("prism.text", "t2k");
@@ -73,7 +53,7 @@ public class Demo_JavaFX_3d_Chart extends Application {
         settings.axeColor = Color.WHITE;
         
         Chart chart = new Chart(settings);
-        chart.show(primaryStage, Demo_JavaFX_3d_Chart.class.getSimpleName());
+        chart.show(primaryStage, Demo_JavaFX_3d_Wireframe.class.getSimpleName());
 
         initSceneGraph(chart);
     }

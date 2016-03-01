@@ -1,4 +1,4 @@
-package org.jzy3d.demos.javafx3d;
+package org.jzy3d.javafx;
 
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
@@ -10,7 +10,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import org.fxyz.cameras.CameraTransformer;
-import org.fxyz.shapes.primitives.Text3DMesh;
 
 public class View {
     private double mousePosX;
