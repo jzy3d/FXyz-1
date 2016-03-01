@@ -64,6 +64,4 @@ public class Chart {
     public Settings getSettings() {
         return settings;
     }
-    
-    
 }

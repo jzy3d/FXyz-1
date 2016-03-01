@@ -68,42 +68,9 @@ public class View {
         
         axe.setColor(axeColor);
 
-        Text3DMesh label_0 = new Text3DMesh("" + (-cubeWidth/2), "Gadugi Bold", 40, true, 120, 0, 1);
-        label_0.translateXProperty().set(-cubeWidth/2);
-        label_0.translateYProperty().set(-cubeWidth/2);
-        label_0.translateZProperty().set(-cubeWidth/2);
-        
-        Text3DMesh label_xmax = new Text3DMesh("x max="+cubeWidth/2, "Gadugi Bold", 40, true, 120, 0, 1);
-        label_xmax.translateXProperty().set(+cubeWidth/2);
-        label_xmax.translateYProperty().set(-cubeWidth/2);
-        label_xmax.translateZProperty().set(-cubeWidth/2);
-        label_xmax.rotateProperty().set(Math.PI);
-        Text3DMesh label_ymax = new Text3DMesh("y max="+cubeWidth/2, "Gadugi Bold", 40, true, 120, 0, 1);
-        label_ymax.translateXProperty().set(-cubeWidth/2);
-        label_ymax.translateYProperty().set(+cubeWidth/2);
-        label_ymax.translateZProperty().set(-cubeWidth/2);
-
-        Text3DMesh label_zmax = new Text3DMesh("z max="+cubeWidth/2, "Gadugi Bold", 40, true, 120, 0, 1);
-        label_zmax.translateXProperty().set(-cubeWidth/2);
-        label_zmax.translateYProperty().set(-cubeWidth/2);
-        label_zmax.translateZProperty().set(+cubeWidth/2);
-
-        // letters.setDrawMode(DrawMode.LINE);
-        // NONE
-        // letters.setTextureModeNone(Color.ROYALBLUE);
-        // IMAGE
-        // letters.setTextureModeImage(getClass().getResource("res/steel-background1.jpg").toExternalForm());
-        // letters.setTextureModeImage(getClass().getResource("res/marvel1.jpg").toExternalForm());
-        // DENSITY
-        label_xmax.setTextureModeVertices3D(1530, p -> p.magnitude());
-        // letters.setTextureModeVertices3D(1530,p->Math.sin(p.y/50)*Math.cos(p.x/40)*p.z);
-        // FACES
-        // letters.setTextureModeFaces(Palette.ColorPalette.HSB,16);
-        sceneRoot.getChildren().add(label_0);
-        sceneRoot.getChildren().add(label_xmax);
-        sceneRoot.getChildren().add(label_ymax);
-        sceneRoot.getChildren().add(label_zmax);
     }
+
+    
 
     public void initMouseCamera(Scene scene) {
         scene.setOnMousePressed((MouseEvent me) -> {

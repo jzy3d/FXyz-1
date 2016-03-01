@@ -53,6 +53,8 @@ import org.fxyz.utils.Patterns.CarbonPatterns;
 @SuppressWarnings("restriction")
 public class Demo_JavaFX_3d_Chart extends Application {
     public static void main(String[] args) {
+        //System.setProperty("prism.lcdtext", "false");
+        //System.setProperty("prism.text", "t2k");
         launch(args);
     }
 
@@ -66,27 +68,27 @@ public class Demo_JavaFX_3d_Chart extends Application {
         settings.sceneHeight = 600;
         settings.cubeWidth = 1000;
         settings.cubeLineSpace = 50;
-        settings.cameraTranslateZ = -3300;
+        settings.cameraTranslateZ = -3500;
         settings.sceneColor = Color.WHITESMOKE;
         settings.axeColor = Color.WHITE;
         
         Chart chart = new Chart(settings);
-        initSceneGraph(chart);
-        
         chart.show(primaryStage, Demo_JavaFX_3d_Chart.class.getSimpleName());
+
+        initSceneGraph(chart);
     }
 
     public void initSceneGraph(Chart chart) {
         DrawableFactory f = new DrawableFactory();
 
         // Scatter
-        f.addScatterDemo(chart.getGraph());
+        //f.addScatterDemo(chart.getGraph());
 
         // Surface
         int SurfaceRange = 1000;
         double ZRatio = 5000d;
         int SurfaceStep = 100;
-        f.addSurface(chart.getGraph(), f.sample, SurfaceRange, SurfaceRange, SurfaceStep, SurfaceStep, ZRatio);
+        //f.addSurface(chart.getGraph(), f.sample, SurfaceRange, SurfaceRange, SurfaceStep, SurfaceStep, ZRatio);
 
         // Wireframe
         int WireFrameSteps = 10;
