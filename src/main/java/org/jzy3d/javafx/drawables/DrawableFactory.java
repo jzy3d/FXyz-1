@@ -1,4 +1,4 @@
-package org.jzy3d.javafx;
+package org.jzy3d.javafx.drawables;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,17 +19,17 @@ import org.fxyz.shapes.primitives.SurfacePlotMesh;
 import org.fxyz.utils.Patterns.CarbonPatterns;
 
 public class DrawableFactory {
-    private static final double epsilon = 0.00000000000000001;
-    private Function<Point3D, Number> colormap = p->p.x;
+    public static final double epsilon = 0.00000000000000001;
+    public static Function<Point3D, Number> colormap = p->p.x;
     
-    public Function<Point2D,Number> sample = p -> Math.sin(p.magnitude() + 0.00000000000000001) / (p.magnitude() + 0.00000000000000001);
-    public Function<Point2D,Number> jzy = p->p.getX() * Math.sin(p.getX() * p.getY());
+    public static Function<Point2D,Number> sample = p -> Math.sin(p.magnitude() + 0.00000000000000001) / (p.magnitude() + 0.00000000000000001);
+    public static Function<Point2D,Number> jzy = p->p.getX() * Math.sin(p.getX() * p.getY());
     //
 
     /*public void addSurface(Group sceneRoot, Function<Point2D,Number> function, double rangeX, double rangeY, int divisionsX, int divisionsY, double functionScale) {
     }*/
     
-    public void addSurface(Group sceneRoot, Function<Point2D,Number> function, double rangeX, double rangeY, int divisionsX, int divisionsY, double functionScale) {
+    public void addSurface(Group sceneRoot, Function<Point2D,Number> function, Function<Point3D, Number> colormap, double rangeX, double rangeY, int divisionsX, int divisionsY, double functionScale) {
         SurfacePlotMesh surface = new SurfacePlotMesh(function, rangeX, rangeY, divisionsX, divisionsY, functionScale);
         // PhongMaterial matTorus = new PhongMaterial(Color.FIREBRICK);
         // torus.setMaterial(matTorus);

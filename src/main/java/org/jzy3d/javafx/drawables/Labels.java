@@ -1,4 +1,4 @@
-package org.jzy3d.javafx;
+package org.jzy3d.javafx.drawables;
 
 import javafx.scene.CacheHint;
 import javafx.scene.Group;

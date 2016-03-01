@@ -16,11 +16,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.jzy3d.javafx.demos;
+package org.jzy3d.javafx;
 
-import org.jzy3d.javafx.Chart;
-import org.jzy3d.javafx.DrawableFactory;
-import org.jzy3d.javafx.Settings;
+import org.jzy3d.javafx.chart.Chart;
+import org.jzy3d.javafx.chart.Settings;
+import org.jzy3d.javafx.drawables.DrawableFactory;
 
 import javafx.application.Application;
 import javafx.scene.paint.Color;
@@ -31,10 +31,10 @@ import javafx.stage.Stage;
  * @author Sean
  */
 @SuppressWarnings("restriction")
-public class Demo_JavaFX_3d_Surface extends Application {
+public class Demo_JavaFX_3d_Wireframe extends Application {
     public static void main(String[] args) {
-        // System.setProperty("prism.lcdtext", "false");
-        // System.setProperty("prism.text", "t2k");
+        //System.setProperty("prism.lcdtext", "false");
+        //System.setProperty("prism.text", "t2k");
         launch(args);
     }
 
@@ -51,9 +51,9 @@ public class Demo_JavaFX_3d_Surface extends Application {
         settings.cameraTranslateZ = -3500;
         settings.sceneColor = Color.WHITESMOKE;
         settings.axeColor = Color.WHITE;
-
+        
         Chart chart = new Chart(settings);
-        chart.show(primaryStage, Demo_JavaFX_3d_Surface.class.getSimpleName());
+        chart.show(primaryStage, Demo_JavaFX_3d_Wireframe.class.getSimpleName());
 
         initSceneGraph(chart);
     }
@@ -61,13 +61,19 @@ public class Demo_JavaFX_3d_Surface extends Application {
     public void initSceneGraph(Chart chart) {
         DrawableFactory f = new DrawableFactory();
 
+        // Scatter
+        //f.addScatterDemo(chart.getGraph());
+
         // Surface
-        // coloring surface :
-        // http://stackoverflow.com/questions/26831871/coloring-individual-triangles-in-a-triangle-mesh-on-javafx
-        int SurfaceRange = 800;
-        double ZRatio = 0.25d;
+        int SurfaceRange = 1000;
+        double ZRatio = 5000d;
         int SurfaceStep = 100;
-        f.addSurface(chart.getGraph(), f.jzy, SurfaceRange, SurfaceRange, SurfaceStep, SurfaceStep, ZRatio);
+        //f.addSurface(chart.getGraph(), f.sample, SurfaceRange, SurfaceRange, SurfaceStep, SurfaceStep, ZRatio);
+
+        // Wireframe
+        int WireFrameSteps = 10;
+        int WireFrameSpacing = 100;
+        f.addWireframe(chart.getGraph(), WireFrameSteps / 2, WireFrameSpacing, chart.getSettings().sceneWidth, chart.getSettings().sceneHeight);
     }
 
 }

@@ -16,9 +16,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.jzy3d.javafx;
+package org.jzy3d.javafx.view;
 
 import java.util.ArrayList;
+
+import org.jzy3d.javafx.drawables.Labels;
 
 import javafx.scene.DepthTest;
 import javafx.scene.Group;

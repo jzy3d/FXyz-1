@@ -1,4 +1,6 @@
-package org.jzy3d.javafx;
+package org.jzy3d.javafx.chart;
+
+import org.jzy3d.javafx.view.View;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
