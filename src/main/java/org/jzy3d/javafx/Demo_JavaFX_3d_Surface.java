@@ -69,7 +69,7 @@ public class Demo_JavaFX_3d_Surface extends Application {
         // coloring surface :
         // http://stackoverflow.com/questions/26831871/coloring-individual-triangles-in-a-triangle-mesh-on-javafx
         // http://stackoverflow.com/questions/31073007/how-to-create-a-3d-surface-chart-with-javafx/31125736#31125736
-        int SurfaceRange = 800;
+        int SurfaceRange = 1000;
         double ZRatio = 0.25d;
         int SurfaceStep = 100;
         

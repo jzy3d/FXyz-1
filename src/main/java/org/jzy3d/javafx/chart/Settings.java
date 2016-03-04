@@ -11,8 +11,10 @@ public class Settings {
     public int cubeLineSpace;
     public Color sceneColor = Color.WHITESMOKE;
     public Color axeColor = Color.WHITE;
-    public boolean isFlipped  =true;
+    public boolean normalProjection = true;
     public Color textColor = Color.BLACK;
     public Font font = Font.font(java.awt.Font.SERIF, 25);
-    public double textSize=  25;
+    public double textSize = 25;
+    public boolean hasFaces = false;
+
 }

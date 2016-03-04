@@ -225,7 +225,7 @@ public class SurfacePlotMesh extends TexturedMesh {
             for (int x = 0; x <= divisionsX; x++) {
                 float dx = (float) (-rangeX / 2d + ((float) x / (float) divisionsX) * rangeX);
                 pointY = (float) scale * function2D.apply(new Point2D(dx, dy)).floatValue();
-                if (settings.isFlipped)
+                if (settings.normalProjection)
                     listVertices.add(new Point3D(dx, dy, pointY));
                 else
                     listVertices.add(new Point3D(dx, pointY, dy));

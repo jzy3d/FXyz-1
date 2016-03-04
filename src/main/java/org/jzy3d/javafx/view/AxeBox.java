@@ -20,8 +20,6 @@ package org.jzy3d.javafx.view;
 
 import java.util.ArrayList;
 
-import org.jzy3d.javafx.drawables.Labels;
-
 import javafx.scene.DepthTest;
 import javafx.scene.Group;
 import javafx.scene.PointLight;
@@ -32,6 +30,9 @@ import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
+
+import org.jzy3d.javafx.chart.Settings;
+import org.jzy3d.javafx.drawables.Labels;
 
 /**
  *
@@ -118,8 +119,8 @@ public class AxeBox extends Group {
     public boolean showzy2GridLinesGroup = true;
     public boolean showzx2GridLinesGroup = true;
 
-    boolean hasFaces = false;
-
+    Settings settings = new Settings();
+    
     public AxeBox(boolean ambientLight) {
         selfLightEnabled = ambientLight;
         init();
@@ -159,7 +160,7 @@ public class AxeBox extends Group {
         // LABELS
         new Labels().addAxisLabels(this, (int) axesSize);
 
-        if (!hasFaces)
+        if (!settings.hasFaces)
             hideAll();
     }
 
@@ -615,7 +616,7 @@ public class AxeBox extends Group {
                 zx2GridLinesGroup.setVisible(true);
         }
 
-        if (!hasFaces)
+        if (!settings.hasFaces)
             hideAll();
     }
 

@@ -42,14 +42,15 @@ public class View {
         initMouseCamera(scene);
     }
 
-    public void initCamera(Group sceneRoot, Scene scene, Settings settings) {
+    public void initCamera(Group graph, Scene scene, Settings settings) {
         camera = new PerspectiveCamera(true);
         //camera = new ParallelCamera();
         transformDefault(settings.cameraTranslateZ);
         clippingPlanes();
-        if (settings.isFlipped)
+        if (settings.normalProjection)
             rotate3dDefault();
-        addLightOnCamera(scene);
+       addLightOnCamera(scene);
+        scene.setCamera(camera);
     }
 
     private void transformDefault(double cameraTranslateZ) {
@@ -64,21 +65,18 @@ public class View {
         camera.setFarClip(10000.0);
     }
 
+    // add a Point Light for better viewing of the grid coordinate system
     private void addLightOnCamera(Scene scene) {
+        // add a Point Light for better viewing of the grid coordinate system
         PointLight light = new PointLight(Color.WHITE);
         cameraTransform.getChildren().add(light);
         light.setTranslateX(camera.getTranslateX());
         light.setTranslateY(camera.getTranslateY());
         light.setTranslateZ(camera.getTranslateZ());
-        scene.setCamera(camera);
     }
 
     private void rotate3dDefault() {
-        // camera.setTranslateY(1000);
-        // cameraTransform.ry.setAngle(90);//-45.0);
         cameraTransform.rx.setAngle(180 + 90);// -10.0);
-        // cameraTransform.rz.setAngle(90);//-45.0);
-        // add a Point Light for better viewing of the grid coordinate system
     }
 
     public void initAxe(Group sceneRoot, int cubeWidth, int cubeLineSpace, Color axeColor) {
@@ -114,7 +112,7 @@ public class View {
                 modifier = 50.0;
             }
             if (me.isPrimaryButtonDown()) {
-                if(!settings.isFlipped){
+                if(!settings.normalProjection){
                     cameraTransform.ry.setAngle(((cameraTransform.ry.getAngle() + mouseDeltaX * modifierFactor * modifier * 2.0) % 360 + 540) % 360 - 180); // +
                     cameraTransform.rx.setAngle(((cameraTransform.rx.getAngle() - mouseDeltaY * modifierFactor * modifier * 2.0) % 360 + 540) % 360 - 180); // -
                     axe.adjustPanelsByPos(cameraTransform.rx.getAngle(), cameraTransform.ry.getAngle(), cameraTransform.rz.getAngle());
@@ -123,7 +121,6 @@ public class View {
                     cameraTransform.rz.setAngle(((cameraTransform.rz.getAngle() + mouseDeltaX * modifierFactor * modifier * 2.0) % 360 + 540) % 360 - 180); // +
                     cameraTransform.rx.setAngle(((cameraTransform.rx.getAngle() - mouseDeltaY * modifierFactor * modifier * 2.0) % 360 + 540) % 360 - 180); // -
                     axe.adjustPanelsByPos(cameraTransform.rx.getAngle(), cameraTransform.ry.getAngle(), cameraTransform.rz.getAngle());
-                    
                 }
             } else if (me.isSecondaryButtonDown()) {
                 double z = camera.getTranslateZ();

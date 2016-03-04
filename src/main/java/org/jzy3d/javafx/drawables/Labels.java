@@ -46,7 +46,7 @@ public class Labels {
             double y = -cubeWidth / 2 - offset; // Z NE SEMBLE PAS TOLERE?! METTRE DANS UN AUTRE OBJET
             double z = i * 100 - cubeWidth / 2;
             //BorderPane la = addLabel("Y" + i, fontSize, new Coord3d(x, y, i * 100 - cubeWidth / 2));
-            Text la = createText("Z="+i, settings.textSize, settings.textColor, settings.font);
+            Text la = createText("Z="+z, settings.textSize, settings.textColor, settings.font);
             positionLabel(new Coord3d(x, y, z), la);
             parent.getChildren().add(la);
         }
@@ -127,7 +127,8 @@ public class Labels {
         pane.translateYProperty().set(position.y);
         pane.translateZProperty().set(position.z);
         if(settings!=null){
-            if(settings.isFlipped){
+            if(settings.normalProjection){
+                //pane.rotationAxisProperty().set(new Point3D(90, 90, 270));
                 pane.rotationAxisProperty().set(new Point3D(270, 90, 90));
                 pane.rotateProperty().set(270);
             }

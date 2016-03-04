@@ -47,8 +47,13 @@ public class DrawableFactory {
         //surface.getTransforms().addAll(new Rotate(0, Rotate.X_AXIS), rotateY);
         
         
-        addPointLight(sceneRoot, Color.WHITE, 0, 500, 600);
-        addPointLight(sceneRoot, Color.WHITE, 0, 500, -600);
+        addPointLight(sceneRoot, Color.WHITE, 500, 0, 0);
+        addPointLight(sceneRoot, Color.WHITE, -500, 0, 0);
+        addPointLight(sceneRoot, Color.WHITE, 0, 500, 0);
+        addPointLight(sceneRoot, Color.WHITE, 0, -500, 0);
+        addPointLight(sceneRoot, Color.WHITE, 0, 0, 500);
+        addPointLight(sceneRoot, Color.WHITE, 0, 0, -500);
+//        addPointLight(sceneRoot, Color.WHITE, 1000, -1000, 00);
         sceneRoot.getChildren().addAll(surface);
     }
     
