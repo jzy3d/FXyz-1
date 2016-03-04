@@ -28,12 +28,15 @@ import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 
+import org.jzy3d.javafx.chart.Settings;
+
 /**
  *
  * @author Sean
  */
 @SuppressWarnings("restriction")
 public class Surface extends Group {
+    Settings settings = new Settings();
 
     public AmbientLight selfLight = new AmbientLight(Color.WHITE);
     public double nodeRadius = 1;

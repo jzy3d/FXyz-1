@@ -15,7 +15,6 @@ import javafx.scene.transform.Rotate;
 
 import org.fxyz.geometry.Point3D;
 import org.fxyz.shapes.primitives.ScatterMesh;
-import org.fxyz.shapes.primitives.SurfacePlotMesh;
 import org.fxyz.utils.Patterns.CarbonPatterns;
 
 public class DrawableFactory {
@@ -45,7 +44,7 @@ public class DrawableFactory {
         surface.setTextureModeFaces(256 * 256);
 
         Rotate rotateY = new Rotate(0, 0, 0, 0, Rotate.Y_AXIS);
-        surface.getTransforms().addAll(new Rotate(0, Rotate.X_AXIS), rotateY);
+        //surface.getTransforms().addAll(new Rotate(0, Rotate.X_AXIS), rotateY);
         
         
         addPointLight(sceneRoot, Color.WHITE, 0, 500, 600);

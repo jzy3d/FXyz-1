@@ -1,6 +1,7 @@
 package org.jzy3d.javafx.chart;
 
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class Settings {
     public double sceneWidth;
@@ -10,4 +11,8 @@ public class Settings {
     public int cubeLineSpace;
     public Color sceneColor = Color.WHITESMOKE;
     public Color axeColor = Color.WHITE;
+    public boolean isFlipped  =true;
+    public Color textColor = Color.BLACK;
+    public Font font = Font.font(java.awt.Font.SERIF, 25);
+    public double textSize=  25;
 }

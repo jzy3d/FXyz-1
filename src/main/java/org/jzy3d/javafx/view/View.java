@@ -1,6 +1,8 @@
 package org.jzy3d.javafx.view;
 
+import javafx.scene.Camera;
 import javafx.scene.Group;
+import javafx.scene.ParallelCamera;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.PointLight;
 import javafx.scene.Scene;
@@ -13,6 +15,8 @@ import org.fxyz.cameras.CameraTransformer;
 import org.jzy3d.javafx.chart.Settings;
 
 public class View {
+    Settings settings = new Settings();
+    
     private double mousePosX;
     private double mousePosY;
     private double mouseOldX;
@@ -20,44 +24,61 @@ public class View {
     private double mouseDeltaX;
     private double mouseDeltaY;
 
-    private PerspectiveCamera camera;
+    private Camera camera;
     private CameraTransformer cameraTransform = new CameraTransformer();
 
     private AxeBox axe;
-    
+
     public void show(Stage primaryStage, Scene scene, String title) {
         primaryStage.setTitle(title);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    
+
     public void init(Settings settings, Group graph, Scene scene) {
-        initCamera(graph, scene, settings.cameraTranslateZ);
+        initCamera(graph, scene, settings);
         initAxe(graph, settings.cubeWidth, settings.cubeLineSpace, settings.axeColor);
         initKeyboardCamera(scene);
         initMouseCamera(scene);
     }
 
-
-    public void initCamera(Group sceneRoot, Scene scene, double cameraTranslateZ) {
+    public void initCamera(Group sceneRoot, Scene scene, Settings settings) {
         camera = new PerspectiveCamera(true);
+        //camera = new ParallelCamera();
+        transformDefault(settings.cameraTranslateZ);
+        clippingPlanes();
+        if (settings.isFlipped)
+            rotate3dDefault();
+        addLightOnCamera(scene);
+    }
 
+    private void transformDefault(double cameraTranslateZ) {
         cameraTransform.setTranslate(0, 0, 0);
         cameraTransform.getChildren().add(camera);
-        camera.setNearClip(0.1);
-        camera.setFarClip(10000.0);
         // camera.setTranslateZ(-5000);
         camera.setTranslateZ(cameraTranslateZ);
-        // camera.setTranslateY(1000);
-        cameraTransform.ry.setAngle(-45.0);
-        cameraTransform.rx.setAngle(-10.0);
-        // add a Point Light for better viewing of the grid coordinate system
+    }
+
+    private void clippingPlanes() {
+        camera.setNearClip(0.1);
+        camera.setFarClip(10000.0);
+    }
+
+    private void addLightOnCamera(Scene scene) {
         PointLight light = new PointLight(Color.WHITE);
         cameraTransform.getChildren().add(light);
         light.setTranslateX(camera.getTranslateX());
         light.setTranslateY(camera.getTranslateY());
         light.setTranslateZ(camera.getTranslateZ());
         scene.setCamera(camera);
+    }
+
+    private void rotate3dDefault() {
+        // camera.setTranslateY(1000);
+        // cameraTransform.ry.setAngle(90);//-45.0);
+        cameraTransform.rx.setAngle(180 + 90);// -10.0);
+        // cameraTransform.rz.setAngle(90);//-45.0);
+        // add a Point Light for better viewing of the grid coordinate system
     }
 
     public void initAxe(Group sceneRoot, int cubeWidth, int cubeLineSpace, Color axeColor) {
@@ -93,9 +114,17 @@ public class View {
                 modifier = 50.0;
             }
             if (me.isPrimaryButtonDown()) {
-                cameraTransform.ry.setAngle(((cameraTransform.ry.getAngle() + mouseDeltaX * modifierFactor * modifier * 2.0) % 360 + 540) % 360 - 180); // +
-                cameraTransform.rx.setAngle(((cameraTransform.rx.getAngle() - mouseDeltaY * modifierFactor * modifier * 2.0) % 360 + 540) % 360 - 180); // -
-                axe.adjustPanelsByPos(cameraTransform.rx.getAngle(), cameraTransform.ry.getAngle(), cameraTransform.rz.getAngle());
+                if(!settings.isFlipped){
+                    cameraTransform.ry.setAngle(((cameraTransform.ry.getAngle() + mouseDeltaX * modifierFactor * modifier * 2.0) % 360 + 540) % 360 - 180); // +
+                    cameraTransform.rx.setAngle(((cameraTransform.rx.getAngle() - mouseDeltaY * modifierFactor * modifier * 2.0) % 360 + 540) % 360 - 180); // -
+                    axe.adjustPanelsByPos(cameraTransform.rx.getAngle(), cameraTransform.ry.getAngle(), cameraTransform.rz.getAngle());
+                }
+                else{
+                    cameraTransform.rz.setAngle(((cameraTransform.rz.getAngle() + mouseDeltaX * modifierFactor * modifier * 2.0) % 360 + 540) % 360 - 180); // +
+                    cameraTransform.rx.setAngle(((cameraTransform.rx.getAngle() - mouseDeltaY * modifierFactor * modifier * 2.0) % 360 + 540) % 360 - 180); // -
+                    axe.adjustPanelsByPos(cameraTransform.rx.getAngle(), cameraTransform.ry.getAngle(), cameraTransform.rz.getAngle());
+                    
+                }
             } else if (me.isSecondaryButtonDown()) {
                 double z = camera.getTranslateZ();
                 double newZ = z + mouseDeltaX * modifierFactor * modifier;
@@ -133,7 +162,7 @@ public class View {
         });
     }
 
-    public PerspectiveCamera getCamera() {
+    public Camera getCamera() {
         return camera;
     }
 
@@ -141,7 +170,7 @@ public class View {
         return cameraTransform;
     }
 
-    public AxeBox getAxe(){
+    public AxeBox getAxe() {
         return axe;
     }
 
